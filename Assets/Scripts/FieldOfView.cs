@@ -1,29 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Angles;
 
 public class FieldOfView : MonoBehaviour
 {
 
     [SerializeField] private LayerMask layerMask;
     private Vector3 origin;
-    private float startingAngle = 45f;
-    private float fov;
-
-    public static Vector3 GetVectorFromAngle(float angle)
-    {
-        float angleRad = angle * (Mathf.PI/180f);
-        return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
-    }
-
-    public static float GetAngleFromVectorFloat(Vector3 dir)
-    {
-        dir = dir.normalized;
-        float n = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-        if(n<0) n += 360;
-        return n;
-    }
-
+    public float startingAngle;
+    public float fov;
+    public float viewDistance;
 
     // Start is called before the first frame update
 
@@ -32,16 +19,17 @@ public class FieldOfView : MonoBehaviour
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        fov = 90f;
+        fov = 45f;
+        viewDistance = 5f;
         origin = Vector3.zero;
+        startingAngle = fov/2f;
     }
 
     private void Update()
     {
         int rayCount = 50;
-        float angle = startingAngle;
+        float angle = startingAngle + fov/2f;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 5f;
 
         Vector3[] vertices = new Vector3[rayCount +1 +1];
         Vector2[] uv = new Vector2[vertices.Length];
