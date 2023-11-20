@@ -11,6 +11,7 @@ public class player_movement : MonoBehaviour
     public float move_speed = 5f;
     float speed_modifier = 1f; 
     public Rigidbody2D rb;
+    public ProjectileController projectile;
 
     Vector2 movement;
 
@@ -33,7 +34,7 @@ public class player_movement : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F))
         {
             if(fieldOfView.fov == 45f)
             {
@@ -45,6 +46,11 @@ public class player_movement : MonoBehaviour
                 fieldOfView.fov = 45f;
                 fieldOfView.viewDistance = 5f;
             }
+        }
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(projectile,transform);
+            projectile.angle = GetAngleFromVectorFloat(Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position));
         }
     }
 

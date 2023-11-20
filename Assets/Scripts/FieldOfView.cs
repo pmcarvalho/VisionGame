@@ -19,7 +19,7 @@ public class FieldOfView : MonoBehaviour
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        fov = 45f;
+        fov = 360f;
         viewDistance = 5f;
         origin = Vector3.zero;
         startingAngle = fov/2f;
@@ -27,7 +27,7 @@ public class FieldOfView : MonoBehaviour
 
     private void Update()
     {
-        int rayCount = 50;
+        int rayCount = 400;
         float angle = startingAngle + fov/2f;
         float angleIncrease = fov / rayCount;
 
